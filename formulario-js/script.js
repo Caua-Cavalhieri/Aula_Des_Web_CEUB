@@ -31,7 +31,127 @@ cpf.addEventListener('input', function () {
 
 cep.addEventListener('input', function () {
   cep.value = mascaraCEP(cep.value);
+
+  if (cep.value.length === 9) {
+    buscarEndereco(cep.value.replace('-', ''));
+  }
 });
+
+const matricula = document.getElementById('matricula');
+
+matricula.addEventListener('input', function () {
+  matricula.value = mascaraCPF(matricula.value);
+});
+
+
+// Endereço preenchido pelo CEP (ViaCEP)
+
+function preencherEndereco(dados) {
+  document.getElementById('logradouro').value = dados.logradouro || '';
+  document.getElementById('complemento').value = dados.complemento || '';
+  document.getElementById('bairro').value = dados.bairro || '';
+  document.getElementById('cidade').value = dados.localidade || '';
+  document.getElementById('estado').value = dados.uf || '';
+  document.getElementById('ibge').value = dados.ibge || '';
+}
+
+function buscarEndereco(numeroCep) {
+  fetch('https://viacep.com.br/ws/' + numeroCep + '/json/')
+    .then(function (resposta) {
+      return resposta.json();
+    })
+    .then(function (dados) {
+      if (dados.erro) {
+        preencherEndereco({});
+        alert('CEP não encontrado.');
+        return;
+      }
+      preencherEndereco(dados);
+      document.getElementById('numero').focus();
+    })
+    .catch(function () {
+      alert('Não foi possível buscar o CEP agora.');
+    });
+}
+
+
+// Idade calculada pela data de nascimento
+
+const nascimento = document.getElementById('nascimento');
+const idade = document.getElementById('idade');
+
+function calcularIdade() {
+  if (!nascimento.value) {
+    idade.value = '';
+    return;
+  }
+
+  const hoje = new Date();
+  const dataNascimento = new Date(nascimento.value + 'T00:00:00');
+  let anos = hoje.getFullYear() - dataNascimento.getFullYear();
+  const mes = hoje.getMonth() - dataNascimento.getMonth();
+
+  if (mes < 0 || (mes === 0 && hoje.getDate() < dataNascimento.getDate())) {
+    anos--;
+  }
+
+  idade.value = anos >= 0 ? anos + ' anos' : '';
+}
+
+nascimento.addEventListener('change', calcularIdade);
+
+
+// Estado e cidade (API do IBGE)
+
+const estadoAluno = document.getElementById('estado_aluno');
+const cidadeAluno = document.getElementById('cidade_aluno');
+
+function limparCidades(texto) {
+  cidadeAluno.innerHTML = '<option value="">' + texto + '</option>';
+  cidadeAluno.disabled = true;
+}
+
+function carregarEstados() {
+  fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
+    .then(function (resposta) {
+      return resposta.json();
+    })
+    .then(function (estados) {
+      for (const estado of estados) {
+        const opcao = document.createElement('option');
+        opcao.value = estado.sigla;
+        opcao.textContent = estado.nome;
+        estadoAluno.appendChild(opcao);
+      }
+    });
+}
+
+function carregarCidades() {
+  if (!estadoAluno.value) {
+    limparCidades('Selecione primeiro o estado');
+    return;
+  }
+
+  limparCidades('Carregando...');
+
+  fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados/' + estadoAluno.value + '/municipios?orderBy=nome')
+    .then(function (resposta) {
+      return resposta.json();
+    })
+    .then(function (cidades) {
+      limparCidades('Selecione a cidade');
+      for (const cidade of cidades) {
+        const opcao = document.createElement('option');
+        opcao.value = cidade.nome;
+        opcao.textContent = cidade.nome;
+        cidadeAluno.appendChild(opcao);
+      }
+      cidadeAluno.disabled = false;
+    });
+}
+
+estadoAluno.addEventListener('change', carregarCidades);
+carregarEstados();
 
 
 // Botão de envio só habilita com nome e telefone preenchidos
@@ -82,5 +202,6 @@ formulario.addEventListener('reset', function () {
     verificarNomeTelefone();
     mostrarSegundaLingua();
     mostrarTelefoneResponsavel();
+    limparCidades('Selecione primeiro o estado');
   }, 0);
 });

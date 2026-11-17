@@ -318,3 +318,14 @@ input[type="submit"]:disabled {
 input[type="submit"]:disabled:hover {
   background-color: #a5b1bd;
 }
+
+/* Campo calculado automaticamente */
+input[readonly] {
+  background-color: #e9edf2;
+  cursor: default;
+}
+
+select:disabled {
+  color: #999999;
+  cursor: not-allowed;
+}

@@ -60,6 +60,32 @@
         </div>
       </div>
 
+      <div class="campo-grupo">
+        <div class="campo">
+          <label for="matricula">Matrícula</label>
+          <input type="text" id="matricula" name="matricula" maxlength="14" placeholder="000.000.000-00">
+        </div>
+        <div class="campo">
+          <label for="idade">Idade</label>
+          <input type="text" id="idade" name="idade" readonly>
+        </div>
+      </div>
+
+      <div class="campo-grupo">
+        <div class="campo">
+          <label for="estado_aluno">Estado</label>
+          <select id="estado_aluno" name="estado_aluno">
+            <option value="">Selecione o estado</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="cidade_aluno">Cidade</label>
+          <select id="cidade_aluno" name="cidade_aluno" disabled>
+            <option value="">Selecione primeiro o estado</option>
+          </select>
+        </div>
+      </div>
+
     </fieldset>
 
     <fieldset>
