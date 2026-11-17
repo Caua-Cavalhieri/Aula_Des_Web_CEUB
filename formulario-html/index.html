@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Escola Virtual</title>
+</head>
+<body>
+   <h1 align="center">Escola Virtual</h1>
+   <h3 align="center">Formulário de Pré-Matrícula</h3>
+   <hr>
+
+   <form action="" method="post">
+
+      <fieldset>
+         <legend><b>Dados Pessoais:</b></legend>
+         <table>
+            <tr>
+               <td align="right"><label for="nome_aluno">Nome do Aluno:</label></td>
+               <td><input type="text" id="nome_aluno" name="nome_aluno" size="40" required></td>
+            </tr>
+            <tr>
+               <td align="right"><label for="dia">Nascimento (dd/mm/aaaa):</label></td>
+               <td>
+                  <input type="text" id="dia" name="dia" size="2" maxlength="2"> /
+                  <input type="text" id="mes" name="mes" size="2" maxlength="2"> /
+                  <input type="text" id="ano" name="ano" size="4" maxlength="4">
+               </td>
+            </tr>
+            <tr>
+               <td align="right"><label for="nome_mae">Nome da Mãe:</label></td>
+               <td><input type="text" id="nome_mae" name="nome_mae" size="40"></td>
+            </tr>
+            <tr>
+               <td align="right"><label for="nome_pai">Nome do Pai:</label></td>
+               <td><input type="text" id="nome_pai" name="nome_pai" size="40"></td>
+            </tr>
+            <tr>
+               <td align="right"><label for="ddd">Telefone:</label></td>
+               <td>
+                  DDD (<input type="text" id="ddd" name="ddd" size="2" maxlength="2">)
+                  <label for="tel">Tel:</label>
+                  <input type="tel" id="tel" name="tel" size="10" maxlength="10">
+                  <label for="ramal">Ramal:</label>
+                  <input type="text" id="ramal" name="ramal" size="4" maxlength="4">
+               </td>
+            </tr>
+            <tr>
+               <td align="right"><label for="email">E-Mail:</label></td>
+               <td><input type="email" id="email" name="email" size="40"></td>
+            </tr>
+         </table>
+      </fieldset>
+
+      <fieldset>
+         <legend><b>Informações de Matrícula:</b></legend>
+         <table width="100%">
+            <tr valign="top">
+               <td>
+                  <label for="serie">Série:</label><br>
+                  <select id="serie" name="serie">
+                     <option value="pre-escolar">pré-escolar</option>
+                     <option value="1ano">1º ano</option>
+                     <option value="2ano">2º ano</option>
+                     <option value="3ano">3º ano</option>
+                     <option value="4ano">4º ano</option>
+                     <option value="5ano">5º ano</option>
+                  </select>
+               </td>
+               <td>
+                  Turno:<br>
+                  <input type="radio" id="manha" name="turno" value="manha">
+                  <label for="manha">Manhã</label><br>
+                  <input type="radio" id="tarde" name="turno" value="tarde">
+                  <label for="tarde">Tarde</label>
+               </td>
+               <td>
+                  Atividades Extracurriculares:<br>
+                  <input type="checkbox" id="informatica" name="atividades" value="informatica">
+                  <label for="informatica">Informática</label><br>
+                  <input type="checkbox" id="musica" name="atividades" value="musica">
+                  <label for="musica">Música</label><br>
+                  <input type="checkbox" id="balet" name="atividades" value="balet">
+                  <label for="balet">Balet</label><br>
+                  <input type="checkbox" id="pintura" name="atividades" value="pintura">
+                  <label for="pintura">Pintura</label><br>
+                  <input type="checkbox" id="judo" name="atividades" value="judo">
+                  <label for="judo">Judô</label><br>
+                  <input type="checkbox" id="futebol" name="atividades" value="futebol">
+                  <label for="futebol">Futebol</label>
+               </td>
+            </tr>
+         </table>
+      </fieldset>
+
+      <p align="center">
+         <input type="submit" value="Envia Formulário">
+         <input type="reset" value="Limpa Campos">
+      </p>
+
+   </form>
+</body>
+</html>
